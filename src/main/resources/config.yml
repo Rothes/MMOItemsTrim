@@ -1,0 +1,50 @@
+options:
+  trim-pattern:
+    sentry:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_SENTRY"
+    dune:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_DUNE"
+    coast:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_COAST"
+    wild:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_WILD"
+    ward:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_WARD"
+    eye:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_EYE"
+    vex:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_VEX"
+    tide:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_TIDE"
+    snout:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_SNOUT"
+    rib:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_RIB"
+    spire:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_SPIRE"
+    wayfinder:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_WAYFINDER"
+    shaper:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_SHAPER"
+    silence:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_SILENCE"
+    raiser:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_RAISER"
+    host:
+      type: 'ARMOR'
+      id: "TRIM_PATTERN_HOST"

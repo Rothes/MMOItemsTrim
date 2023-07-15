@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+group = 'cn.goucraft'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+
+    // Paper
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+
+    // Spigot
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+
+    maven { url = 'https://repo.codemc.org/repository/maven-public/' }
+    maven { url = 'https://nexus.phoenixdevt.fr/repository/maven-public/' }
+}
+
+dependencies {
+    compileOnly(files(projectDir.path + '/libs/MMOItems-6.9.4.jar'))
+    compileOnly 'org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT'
+    compileOnly "io.lumine:MythicLib-dist:1.5.2-SNAPSHOT"
+    compileOnly "net.Indyuce:MMOItems-API:6.9.2-SNAPSHOT"
+    implementation "de.tr7zw:item-nbt-api:2.11.3"
+}
+
+shadowJar {
+    relocate("de.tr7zw.changeme.nbtapi", "io.github.mit.lib.de.tr7zw.changeme.nbtapi")
+
+    minimize()
+}
+
+test {
+    useJUnitPlatform()
+}
