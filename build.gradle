@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly(files(projectDir.path + '/libs/MMOItems-6.9.4.jar'))
+//    compileOnly(files(projectDir.path + '/libs/MMOItems-6.9.4.jar'))
     compileOnly 'org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT'
     compileOnly "io.lumine:MythicLib-dist:1.5.2-SNAPSHOT"
     compileOnly "net.Indyuce:MMOItems-API:6.9.2-SNAPSHOT"
@@ -37,3 +37,5 @@ shadowJar {
 test {
     useJUnitPlatform()
 }
+sourceCompatibility = JavaVersion.VERSION_14
+targetCompatibility = JavaVersion.VERSION_14
