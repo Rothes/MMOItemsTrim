@@ -5,6 +5,7 @@ import net.Indyuce.mmoitems.MMOItems;
 import net.Indyuce.mmoitems.api.Type;
 import net.Indyuce.mmoitems.api.item.mmoitem.LiveMMOItem;
 import net.Indyuce.mmoitems.api.item.mmoitem.MMOItem;
+import net.Indyuce.mmoitems.stat.data.DoubleData;
 import net.Indyuce.mmoitems.stat.data.type.Mergeable;
 import net.Indyuce.mmoitems.stat.data.type.StatData;
 import net.Indyuce.mmoitems.stat.type.ItemStat;
@@ -24,6 +25,7 @@ import org.bukkit.inventory.meta.trim.TrimPattern;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.logging.Level;
 
 public class Listeners implements Listener {
 
@@ -147,29 +149,12 @@ public class Listeners implements Listener {
 
 
         TrimPattern pattern = trim.getPattern();
-        String id = MMOItemsTrim.configManager.idMap.get(pattern);
-        if (id == null) {
+        ConfigManager.ItemFeature it = MMOItemsTrim.configManager.patternMap.get(pattern);
+        if (it == null) {
             return itemStack;
         }
 
-        Type type = MMOItems.plugin.getTypes().get(MMOItemsTrim.configManager.typeMap.get(pattern));
-        if (type == null) {
-            if (Tag.ITEMS_SWORDS.isTagged(itemStack.getType())) {
-                type = Type.SWORD;
-            } else if (Tag.ITEMS_AXES.isTagged(itemStack.getType())) {
-                type = Type.TOOL;
-            } else if (Tag.ITEMS_TRIMMABLE_ARMOR.isTagged(itemStack.getType())) {
-                type = Type.ARMOR;
-            } else if (itemStack.getType() == Material.BOW) {
-                type = Type.BOW;
-            } else if (itemStack.getType() == Material.CROSSBOW) {
-                type = Type.CROSSBOW;
-            } else {
-                return itemStack;
-            }
-        }
-
-        MMOItem mmoItem = MMOItems.plugin.getMMOItem(type, id);
+        MMOItem mmoItem = it.getItem();
         if (mmoItem == null) {
             return itemStack;
         }
@@ -193,6 +178,22 @@ public class Listeners implements Listener {
         }
         nbtItem.setBoolean("MMOITEMSTRIM_APPLIED", true);
         nbtItem.applyNBT(itemStack);
+        ConfigManager.ItemFeature extra = MMOItemsTrim.configManager.getExtra(pattern, trim.getMaterial());
+        if (extra != null) {
+            MMOItem extraItem = extra.getItem();
+            if (extraItem != null) {
+                liveMMOItem = new LiveMMOItem(itemStack);
+                for (ItemStat<?, ?> stat : extraItem.getStats()) {
+                    StatData statData = extraItem.getData(stat);
+                    if (statData instanceof Mergeable) {
+                        liveMMOItem.mergeData(stat, statData, null);
+                    } else if (!liveMMOItem.hasData(stat)) {
+                        liveMMOItem.setData(stat, statData);
+                    }
+                }
+                itemStack = liveMMOItem.newBuilder().buildSilently();
+            }
+        }
 
         ArmorMeta fixTrim = (ArmorMeta) itemStack.getItemMeta();
         fixTrim.setTrim(trim);

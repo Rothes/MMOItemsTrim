@@ -3,6 +3,14 @@ options:
     sentry:
       type: 'ARMOR'
       id: "TRIM_PATTERN_SENTRY"
+      # 材料额外属性加成
+      trim-material:
+        diamond:
+          type: 'ARMOR'
+          id: "TRIM_MATERIAL_DIAMOND"
+        redstone:
+          type: 'ARMOR'
+          id: "TRIM_MATERIAL_REDSTONE"
     dune:
       type: 'ARMOR'
       id: "TRIM_PATTERN_DUNE"

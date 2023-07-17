@@ -12,9 +12,11 @@ import java.util.List;
 public class MMOItemsTrim extends JavaPlugin {
 
     public static ConfigManager configManager;
+    public static MMOItemsTrim instance;
 
     @Override
     public void onEnable() {
+        instance = this;
         configManager = new ConfigManager(this);
         Bukkit.getPluginManager().registerEvents(new Listeners(), this);
         PluginCommand cmd = Bukkit.getPluginCommand("mmoitemstrim");
